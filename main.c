@@ -5,7 +5,7 @@ int main()
 {
     struct vertice *lista;
     lista = cria();
-    printf("v[2] - v[%d]\n",lista[2].primeiro->ligacao);
+    printar_grafo(lista);
     destroi(lista);
     return 0;
 }

@@ -14,3 +14,4 @@ struct aresta
 //Definicao das funcoes
 struct vertice *(cria)();
 void destroi (struct vertice *lista);
+void printar_grafo(struct vertice *lista);

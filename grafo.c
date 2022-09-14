@@ -84,3 +84,19 @@ void destroi(struct vertice *lista)
         }
     }
 }
+
+void printar_grafo(struct vertice *lista)
+{
+    int tamanho = sizeof(lista);
+    for(int i = 0; i < tamanho; i += 1)
+    {
+        printf("v[%d]",i+1);
+        struct aresta *aux = lista[i].primeiro;
+        while(aux != NULL)
+        {
+            printf("--%d",aux->ligacao);
+            aux = aux->proximo;
+        }
+        printf("\n");
+    }
+}
