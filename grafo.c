@@ -5,14 +5,14 @@ struct vertice *(cria)()
 {
     FILE *fp = fopen("grafo.txt", "r");
     int n_vertices;
-    int n_arestas;
-    fscanf(fp, "%d %d", &n_vertices, &n_arestas);
+    fscanf(fp, "%d", &n_vertices);
     struct vertice *lista = calloc(n_vertices, sizeof(struct vertice));
     lista->primeiro = NULL;
     int v1, v2;
-    while (n_arestas)
+    while (1)
     {
-        n_arestas -= 1;
+        if(feof(fp))
+            break;
         fscanf(fp, "%d %d", &v1, &v2);
 
         // Bloco de codigo que vai encadear a ligacao do primeiro vertice da dupla ordenada (aresta)
@@ -97,6 +97,6 @@ void printar_grafo(struct vertice *lista)
             printf("--%d",aux->ligacao);
             aux = aux->proximo;
         }
-        printf("\n");
+        printf("--/\n");
     }
 }
