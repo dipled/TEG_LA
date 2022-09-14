@@ -5,7 +5,6 @@ struct vertice
 {
     struct aresta *primeiro;
     int grau;
-
 };
 struct aresta
 {

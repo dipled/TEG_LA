@@ -6,5 +6,6 @@ int main()
     struct vertice *lista;
     lista = cria();
     printf("v[2] - v[%d]\n",lista[2].primeiro->ligacao);
+     
     return 0;
 }
