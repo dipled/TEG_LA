@@ -3,9 +3,9 @@
 #include "arq.h"
 int main()
 {
-    struct vertice *lista;
-    lista = cria();
-    printar_grafo(lista);
-    destroi(lista);
+    struct descritor *desc;
+    desc = cria();
+    printar_grafo(desc);
+    destroi(desc);
     return 0;
 }

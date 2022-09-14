@@ -1,13 +1,15 @@
 #include "arq.h"
 #include <stdio.h>
 #include <stdlib.h>
-struct vertice *(cria)()
+struct descritor *(cria)()
 {
     FILE *fp = fopen("grafo.txt", "r");
     int n_vertices;
     fscanf(fp, "%d", &n_vertices);
-    struct vertice *lista = calloc(n_vertices, sizeof(struct vertice));
-    lista->primeiro = NULL;
+    struct descritor *desc = malloc(sizeof(struct descritor));
+    desc->quantidade_vertices = n_vertices;
+    desc->lista = calloc(n_vertices, sizeof(struct vertice));
+    desc->lista->primeiro = NULL;
     int v1, v2;
     while (1)
     {
@@ -20,17 +22,17 @@ struct vertice *(cria)()
         struct aresta *novo = malloc(sizeof(struct aresta));
         novo->ligacao = v2;
         novo->proximo = NULL;
-        if (lista[v1 - 1].primeiro == NULL)
+        if (desc->lista[v1 - 1].primeiro == NULL)
         {
-            lista[v1 - 1].primeiro = novo;
-            lista[v1 - 1].grau = 1;
+            desc->lista[v1 - 1].primeiro = novo;
+            desc->lista[v1 - 1].grau = 1;
         }
         else
         {
-            lista[v1 - 1].grau += 1;
+            desc->lista[v1 - 1].grau += 1;
             struct aresta *aux = malloc(sizeof(struct aresta));
 
-            aux = lista[v1 - 1].primeiro;
+            aux = desc->lista[v1 - 1].primeiro;
             while (aux->proximo != NULL)
             {
                 aux = aux->proximo;
@@ -43,16 +45,16 @@ struct vertice *(cria)()
         struct aresta *novo2 = malloc(sizeof(struct aresta));
         novo2->ligacao = v1;
         novo2->proximo = NULL;
-        if (lista[v2 - 1].primeiro == NULL)
+        if (desc->lista[v2 - 1].primeiro == NULL)
         {
-            lista[v2 - 1].grau += 1;
-            lista[v2 - 1].primeiro = novo2;
+            desc->lista[v2 - 1].grau += 1;
+            desc->lista[v2 - 1].primeiro = novo2;
         }
         else
         {
             struct aresta *aux = malloc(sizeof(struct aresta));
 
-            aux = lista[v2 - 1].primeiro;
+            aux = desc->lista[v2 - 1].primeiro;
             while (aux->proximo != NULL)
             {
                 aux = aux->proximo;
@@ -60,38 +62,40 @@ struct vertice *(cria)()
             aux->proximo = novo2;
         }
     }
-    return lista;
+    return desc;
 }
 
-void destroi(struct vertice *lista)
+void destroi(struct descritor *desc)
 {
-    int tamanho = sizeof(lista);
+    int tamanho = desc->quantidade_vertices;
     for (int i = 0; i < tamanho; i += 1)
     {
-        if (lista[i].primeiro == NULL)
-            free(lista[i].primeiro);
+        if (desc->lista[i].primeiro == NULL)
+            free(desc->lista[i].primeiro);
         else
         {
-            struct aresta *aux = lista[i].primeiro;
+            struct aresta *aux = desc->lista[i].primeiro;
 
             while (aux->proximo != NULL)
             {
-                lista[i].primeiro = aux->proximo;
+                desc->lista[i].primeiro = aux->proximo;
                 free(aux);
-                aux = lista[i].primeiro;
+                aux = desc->lista[i].primeiro;
             }
-            free(lista[i].primeiro);
+            free(desc->lista[i].primeiro);
         }
     }
+    free(desc);
 }
 
-void printar_grafo(struct vertice *lista)
+void printar_grafo(struct descritor *desc)
 {
-    int tamanho = sizeof(lista);
-    for(int i = 0; i < tamanho; i += 1)
+   int tamanho = desc->quantidade_vertices;
+    for (int i = 0; i < tamanho; i += 1)
     {
         printf("v[%d]",i+1);
-        struct aresta *aux = lista[i].primeiro;
+        struct aresta *aux = desc->lista[i].primeiro;
+
         while(aux != NULL)
         {
             printf("--%d",aux->ligacao);
