@@ -7,15 +7,15 @@ struct vertice *(cria)()
     int n_vertices;
     int n_arestas;
     fscanf(fp, "%d %d", &n_vertices, &n_arestas);
-    struct vertice *lista = calloc(n_vertices , sizeof(struct vertice));
+    struct vertice *lista = calloc(n_vertices, sizeof(struct vertice));
     lista->primeiro = NULL;
     int v1, v2;
     while (n_arestas)
     {
         n_arestas -= 1;
         fscanf(fp, "%d %d", &v1, &v2);
-        
-        //Bloco de codigo que vai encadear a ligacao do primeiro vertice da dupla ordenada (aresta)
+
+        // Bloco de codigo que vai encadear a ligacao do primeiro vertice da dupla ordenada (aresta)
 
         struct aresta *novo = malloc(sizeof(struct aresta));
         novo->ligacao = v2;
@@ -37,11 +37,11 @@ struct vertice *(cria)()
             }
             aux->proximo = novo;
         }
-   
-        //Bloco de codigo que vai encadear a ligacao do segundo vertice da dupla ordenada (aresta)
+
+        // Bloco de codigo que vai encadear a ligacao do segundo vertice da dupla ordenada (aresta)
 
         struct aresta *novo2 = malloc(sizeof(struct aresta));
-        novo2->ligacao = v2;
+        novo2->ligacao = v1;
         novo2->proximo = NULL;
         if (lista[v2 - 1].primeiro == NULL)
         {
@@ -65,6 +65,22 @@ struct vertice *(cria)()
 
 void destroi(struct vertice *lista)
 {
-    int tamanho = sizeof(lista)/sizeof(struct vertice);
-    for(int i = 0; i < tamanho; i += 1);
+    int tamanho = sizeof(lista);
+    for (int i = 0; i < tamanho; i += 1)
+    {
+        if (lista[i].primeiro == NULL)
+            free(lista[i].primeiro);
+        else
+        {
+            struct aresta *aux = lista[i].primeiro;
+
+            while (aux->proximo != NULL)
+            {
+                lista[i].primeiro = aux->proximo;
+                free(aux);
+                aux = lista[i].primeiro;
+            }
+            free(lista[i].primeiro);
+        }
+    }
 }
