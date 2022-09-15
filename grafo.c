@@ -11,10 +11,8 @@ struct descritor *(cria)()
     desc->lista = calloc(n_vertices, sizeof(struct vertice));
     desc->lista->primeiro = NULL;
     int v1, v2;
-    while (1)
+    while (!feof(fp))
     {
-        if(feof(fp))
-            break;
         fscanf(fp, "%d %d", &v1, &v2);
 
         // Bloco de codigo que vai encadear a ligacao do primeiro vertice da dupla ordenada (aresta)
@@ -39,27 +37,30 @@ struct descritor *(cria)()
             }
             aux->proximo = novo;
         }
-
-        // Bloco de codigo que vai encadear a ligacao do segundo vertice da dupla ordenada (aresta)
-
-        struct aresta *novo2 = malloc(sizeof(struct aresta));
-        novo2->ligacao = v1;
-        novo2->proximo = NULL;
-        if (desc->lista[v2 - 1].primeiro == NULL)
+        if (v1 != v2)
         {
-            desc->lista[v2 - 1].grau += 1;
-            desc->lista[v2 - 1].primeiro = novo2;
-        }
-        else
-        {
-            struct aresta *aux = malloc(sizeof(struct aresta));
 
-            aux = desc->lista[v2 - 1].primeiro;
-            while (aux->proximo != NULL)
+            // Bloco de codigo que vai encadear a ligacao do segundo vertice da dupla ordenada (aresta)
+
+            struct aresta *novo2 = malloc(sizeof(struct aresta));
+            novo2->ligacao = v1;
+            novo2->proximo = NULL;
+            if (desc->lista[v2 - 1].primeiro == NULL)
             {
-                aux = aux->proximo;
+                desc->lista[v2 - 1].grau += 1;
+                desc->lista[v2 - 1].primeiro = novo2;
             }
-            aux->proximo = novo2;
+            else
+            {
+                struct aresta *aux = malloc(sizeof(struct aresta));
+
+                aux = desc->lista[v2 - 1].primeiro;
+                while (aux->proximo != NULL)
+                {
+                    aux = aux->proximo;
+                }
+                aux->proximo = novo2;
+            }
         }
     }
     return desc;
@@ -90,15 +91,15 @@ void destroi(struct descritor *desc)
 
 void printar_grafo(struct descritor *desc)
 {
-   int tamanho = desc->quantidade_vertices;
+    int tamanho = desc->quantidade_vertices;
     for (int i = 0; i < tamanho; i += 1)
     {
-        printf("v[%d]",i+1);
+        printf("v[%d]", i + 1);
         struct aresta *aux = desc->lista[i].primeiro;
 
-        while(aux != NULL)
+        while (aux != NULL)
         {
-            printf("--%d",aux->ligacao);
+            printf("--%d", aux->ligacao);
             aux = aux->proximo;
         }
         printf("--/\n");
