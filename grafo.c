@@ -114,19 +114,21 @@ void leitor()
     ordena();
     FILE *fp = fopen("grafo.txt", "r");
     int dist=0;
-    int v1,v2;
-    int min,max;
+    struct ponto* v1,v2;
+    int minx,maxx,miny,maxy,minz,maxz,minw,maxw;
+
     int num_vertices;
-    double* vet = malloc(150*sizeof(double));
+    fscanf(fp, "%ld", num_vertices);
+    double* vet = calloc(num_vertices,sizeof(struct ponto));
 
     //ler txt e botar no vetor
 
     for(int i=0; i<num_vertices; i++)
     {
-        fscanf(fp, "%ld", vet[i]);
+        fscanf(fp, "%f %f %f %f", vet[i].x, vet[i].y,vet[i].z,vet[i].w);
     }
 
-    min = vet[0];
+    min = vet[0].x;
     max = vet[num_vertices];
 
     for(int i=0; i<num_vertices;i++)
