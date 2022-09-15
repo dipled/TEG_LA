@@ -13,7 +13,7 @@ struct descritor *(cria)()
     int v1, v2;
     while (1)
     {
-        if(feof(fp))
+        if(feof(fp)) //retorna um não 0 quando chega no fim do arquivo
             break;
         fscanf(fp, "%d %d", &v1, &v2);
 
@@ -102,5 +102,46 @@ void printar_grafo(struct descritor *desc)
             aux = aux->proximo;
         }
         printf("--/\n");
+    }
+}
+
+void ordena()
+{
+
+}
+void leitor()
+{   
+    ordena();
+    FILE *fp = fopen("grafo.txt", "r");
+    int dist=0;
+    int v1,v2;
+    int min,max;
+    int num_vertices;
+    double* vet = malloc(150*sizeof(double));
+
+    //ler txt e botar no vetor
+
+    for(int i=0; i<num_vertices; i++)
+    {
+        fscanf(fp, "%ld", vet[i]);
+    }
+
+    min = vet[0];
+    max = vet[num_vertices];
+
+    for(int i=0; i<num_vertices;i++)
+    {
+        v1 = vet[i];
+        while(1)
+        {
+            fscanf(fp,"%ld", &v2);
+            dist = ((v1 - v2)-min)/(max-min);
+            if(dist<0.3)
+            {
+                fprintf(fp,"%ld %d", v1, v2);
+            }
+        }
+        
+
     }
 }
