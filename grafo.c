@@ -14,7 +14,7 @@ struct descritor *(cria)()
     while (!feof(fp))
     {
         fscanf(fp, "%d %d", &v1, &v2);
-
+        
         // Bloco de codigo que vai encadear a ligacao do primeiro vertice da dupla ordenada (aresta)
 
         struct aresta *novo = malloc(sizeof(struct aresta));
