@@ -7,5 +7,6 @@ int main()
     desc = cria();
     printar_grafo(desc);
     destroi(desc);
+    cria_tabela();
     return 0;
 }

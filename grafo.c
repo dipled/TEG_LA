@@ -4,6 +4,8 @@
 struct descritor *(cria)()
 {
     FILE *fp = fopen("grafo.txt", "r");
+    if (fp == NULL)
+        return NULL;
     int n_vertices;
     fscanf(fp, "%d", &n_vertices);
     struct descritor *desc = malloc(sizeof(struct descritor));
@@ -14,7 +16,7 @@ struct descritor *(cria)()
     while (!feof(fp))
     {
         fscanf(fp, "%d %d", &v1, &v2);
-        
+
         // Bloco de codigo que vai encadear a ligacao do primeiro vertice da dupla ordenada (aresta)
 
         struct aresta *novo = malloc(sizeof(struct aresta));
@@ -63,6 +65,8 @@ struct descritor *(cria)()
             }
         }
     }
+    if (fp != NULL)
+        fclose(fp);
     return desc;
 }
 
@@ -103,5 +107,20 @@ void printar_grafo(struct descritor *desc)
             aux = aux->proximo;
         }
         printf("--/\n");
+    }
+}
+
+int **(cria_tabela)()
+{
+    FILE *fp = fopen("iris.csv", "r");
+    if(fp == NULL)
+        return NULL;
+    char buffer[100];
+    fgets(buffer, 100, fp); //Ignorando a primeira linha
+    double x,y,z,w;
+    while(!feof(fp))
+    {
+        fscanf(fp,"%lf, %lf, %lf, %lf,",&x,&y,&z,&w);
+        fgets(buffer, 100, fp); //Ignorando a ultima coluna
     }
 }
