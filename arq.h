@@ -16,11 +16,8 @@ struct aresta
     int ligacao;
     struct aresta *proximo;
 };
-struct ponto
-{
-    float x,y,z,w;
-};
 //Definicao das funcoes
 struct descritor *(cria)();
 void destroi(struct descritor *desc);
 void printar_grafo(struct descritor *desc);
+double** cria_tabela();
