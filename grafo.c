@@ -1,6 +1,7 @@
 #include "arq.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <limits.h>
 #include <math.h>
 #define SIZE 150
 struct descritor *(cria)()
@@ -122,8 +123,8 @@ void printar_grafo(struct descritor *desc)
 double **cria_tabela()
 {
     FILE *fp = fopen("teste.csv", "r");
-    double maior = 0; // para fazer a normalização
-    double menor = 0;
+    double maior = INT_MIN; // para fazer a normalização
+    double menor = INT_MAX;
     double dist = 0; // distancia entre nodos
     double **matrix = malloc(SIZE * sizeof(double *));
     if (fp == NULL)
@@ -143,7 +144,6 @@ double **cria_tabela()
         fscanf(fp, "%lf, %lf, %lf, %lf,", &x, &y, &z, &w);
         fgets(buffer, 100, fp); // Ignorando a ultima coluna
         matrix[i] = malloc(SIZE * sizeof(double));
-        printf("\n");
 
         while (j < SIZE)
         {
@@ -165,8 +165,6 @@ double **cria_tabela()
             {
                 maior = dist;
             }
-            printf("i = [%d] j = [%d] - %lf\n", i, j, matrix[i][j]);
-
             j++;
         }
         fsetpos(fp, &linha_atual);
@@ -179,14 +177,12 @@ double **cria_tabela()
 
 double **normaliza(double **matrix, double menor, double maior)
 {
-    printf("\n\n\n");
 
     for (int i = 0; i < SIZE; i++)
     {
         for (int j = i + 1; j < SIZE; j++)
         {
             matrix[i][j] = (matrix[i][j] - menor) / (maior - menor);
-            printf("i = [%d] j = [%d] - %lf\n", i, j, matrix[i][j]);
         }
     }
     return matrix;
