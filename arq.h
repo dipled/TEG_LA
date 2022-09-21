@@ -17,6 +17,7 @@ struct aresta
     struct aresta *proximo;
 };
 //Definicao das funcoes
+
 struct descritor *(cria)();
 void destroi(struct descritor *desc);
 void printar_grafo(struct descritor *desc);

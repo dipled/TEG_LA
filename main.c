@@ -4,19 +4,39 @@
 
 int main()
 {
-    double **matrix = cria_tabela();
-    leitor(matrix);
-    struct descritor *desc;
-    desc = cria();
-    int sumgraus = 0;
-    for(int i = 0; i < 150; i += 1)
+    double **matrix;
+    struct descritor *desc = NULL;
+    int escolha = 5;
+    while (1)
     {
-        printf("%d\n",desc->lista[i].grau);
-        sumgraus += desc->lista[i].grau;
+        printf("Digite 1 para montar a matriz e gerar um arquivo de texto representando o grafo\nDigite 2 para importar o grafo de um arquivo de texto existente\nDigite 3 para printar o grafo\nDigite 0 para sair\n");
+        scanf("%d", &escolha);
+        switch (escolha)
+        {
+        case 1:
+            matrix = cria_tabela();
+            leitor(matrix);
+            if (matrix == NULL)
+                printf("Erro ao importar arquivo CSV\n");
+            break;
+        case 2:
+            desc = cria();
+            if (desc == NULL)
+                printf("Erro ao importar grafo do arquivo\n");
+            else
+                printf("Grafo importado com sucesso!\n");
+            break;
+        case 3:
+            if (desc == NULL)
+            {
+                printf("Grafo ainda nao foi importado!\n");
+                break;
+            }
+            printar_grafo(desc);
+            break;
+        case 0:
+            destroi(desc);
+            return 0;
+        }
     }
-    printf("\n\n%d\n\n",sumgraus);
-    
-    //printar_grafo(desc);
-    //destroi(desc);
-    return 0;
 }

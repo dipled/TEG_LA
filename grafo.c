@@ -8,7 +8,6 @@ struct descritor *(cria)()
     FILE *fp = fopen("grafo.txt", "r");
     if (fp == NULL)
     {
-        printf("Erro ao abrir arquivo\n\n");
         return NULL;
     }
     int n_vertices;
@@ -80,6 +79,8 @@ struct descritor *(cria)()
 
 void destroi(struct descritor *desc)
 {
+    if(desc == NULL)
+        return;
     int tamanho = desc->quantidade_vertices;
     for (int i = 0; i < tamanho; i += 1)
     {
@@ -99,6 +100,7 @@ void destroi(struct descritor *desc)
         }
     }
     free(desc);
+    return;
 }
 
 void printar_grafo(struct descritor *desc)
@@ -106,14 +108,15 @@ void printar_grafo(struct descritor *desc)
     int tamanho = desc->quantidade_vertices;
     for (int i = 0; i < tamanho; i += 1)
     {
-        printf("v[%d]", i + 1);
+        printf("\nv[%d]", i + 1);
         struct aresta *aux = desc->lista[i].primeiro;
 
         while (aux != NULL)
         {
-            printf("--%d", aux->ligacao);
+            printf("-%d", aux->ligacao);
             aux = aux->proximo;
         }
+        printf("\n");
     }
 }
 
@@ -123,7 +126,6 @@ void leitor(double **matrix) // le a matriz e cria um txt
     FILE *fp = fopen("grafo.txt", "w");
     if (fp == NULL)
     {
-        printf("Erro ao abrir arquivo\n\n");
         return;
     }
     fprintf(fp, "%d\n", SIZE);
