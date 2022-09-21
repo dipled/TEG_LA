@@ -4,7 +4,7 @@
 
 int main()
 {
-    double **matrix;
+    double **matrix = NULL;
     struct descritor *desc = NULL;
     int escolha = 5;
     while (1)

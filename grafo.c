@@ -196,11 +196,11 @@ double **cria_tabela()
         i++;
         j = i + 1;
     }
-    matrix = normaliza(matrix, menor, maior);
+    normaliza(matrix, menor, maior);
     return matrix;
 }
 
-double **normaliza(double **matrix, double menor, double maior)
+void normaliza(double **matrix, double menor, double maior)
 {
 
     for (int i = 0; i < SIZE; i++)
@@ -210,5 +210,4 @@ double **normaliza(double **matrix, double menor, double maior)
             matrix[i][j] = (matrix[i][j] - menor) / (maior - menor);
         }
     }
-    return matrix;
 }
