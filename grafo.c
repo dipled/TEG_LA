@@ -98,6 +98,12 @@ void printar_grafo(struct descritor *desc)
     int tamanho = desc->quantidade_vertices;
     for (int i = 0; i < tamanho; i += 1)
     {
+        if(i == 0)
+            printf("Setosas:\n\n");
+        if(i==50)
+            printf("\n\nVersicolors:\n\n");
+        if(i==100)
+            printf("\n\nVirginicas\n\n");
         printf("v[%d]", i + 1);
         struct aresta *aux = desc->lista[i].primeiro;
 
