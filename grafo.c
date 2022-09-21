@@ -115,7 +115,7 @@ void printar_grafo(struct descritor *desc)
 void leitor(double **matrix) // le a matriz e cria um txt
 {
     char buffer[100];
-    FILE *fp = fopen("criatxt.txt", "w");
+    FILE *fp = fopen("grafo.txt", "w");
     fprintf(fp, "%d\n",SIZE);
     for (int i = 0; i < SIZE; i++)
     {
