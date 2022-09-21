@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#define SIZE 150
 struct descritor *(cria)()
 {
     FILE *fp = fopen("criat.txt", "r");
@@ -114,15 +115,14 @@ void printar_grafo(struct descritor *desc)
 void leitor(double **matrix) // le a matriz e cria um txt
 {
     char buffer[100];
-    FILE *fp = fopen("criatxt2.txt", "w");
-    fgets(buffer, 100, fp); // Ignorando a primeira linha
-
-    for (int i = 0; i < 15; i++)
+    FILE *fp = fopen("criatxt.txt", "w");
+    fprintf(fp, "%d\n",SIZE);
+    for (int i = 0; i < SIZE; i++)
     {
-        for (int j = i+1; j < 15; j++)
+        for (int j = i + 1; j < SIZE; j++)
         {
             if (matrix[i][j] < 0.3)
-                fprintf(fp, "%d %d\n", i+1, j+1);
+                fprintf(fp, "%d %d\n", i + 1, j + 1);
         }
     }
 }
@@ -133,30 +133,27 @@ double **cria_tabela()
     double maior = 0; // para fazer a normalização
     double menor = 0;
     double dist = 0; // distancia entre nodos
-    double **matrix = malloc(15 * sizeof(double *));
+    double **matrix = malloc(SIZE * sizeof(double *));
     if (fp == NULL)
         return NULL;
     char buffer[100];
-    fpos_t segunda_linha;
     fpos_t linha_atual;
     fgetpos(fp, &linha_atual);
-    fgets(buffer, 100, fp);      // Ignorando a ultima coluna
-    fgetpos(fp, &segunda_linha); // salva a segunda linha pra sempre voltar nela no segundo while
+    fgets(buffer, 100, fp); // Ignorando a ultima coluna
     fsetpos(fp, &linha_atual);
     double x, y, z, w, esp, x2, y2, z2, w2, esp2;
 
     int i = 0, j = 1;
-    while (i < 15)
+    while (i < SIZE)
     {
         fgets(buffer, 100, fp); // Ignorando a linha
         fgetpos(fp, &linha_atual);
         fscanf(fp, "%lf, %lf, %lf, %lf,", &x, &y, &z, &w);
         fgets(buffer, 100, fp); // Ignorando a ultima coluna
-        matrix[i] = malloc(15 * sizeof(double));
+        matrix[i] = malloc(SIZE * sizeof(double));
         printf("\n");
 
-        fsetpos(fp, &segunda_linha);
-        while (j < 15)
+        while (j < SIZE)
         {
 
             fscanf(fp, "%lf, %lf, %lf, %lf,", &x2, &y2, &z2, &w2);
@@ -182,7 +179,7 @@ double **cria_tabela()
         }
         fsetpos(fp, &linha_atual);
         i++;
-        j = i +1;
+        j = i + 1;
     }
     matrix = normaliza(matrix, menor, maior);
     return matrix;
@@ -192,9 +189,9 @@ double **normaliza(double **matrix, double menor, double maior)
 {
     printf("\n\n\n");
 
-    for (int i = 0; i < 15; i++)
+    for (int i = 0; i < SIZE; i++)
     {
-        for (int j = i+1; j < 15; j++)
+        for (int j = i + 1; j < SIZE; j++)
         {
             matrix[i][j] = (matrix[i][j] - menor) / (maior - menor);
             printf("i = [%d] j = [%d] - %lf\n", i, j, matrix[i][j]);
