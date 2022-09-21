@@ -18,9 +18,11 @@ struct descritor *(cria)()
     desc->lista = calloc(n_vertices, sizeof(struct vertice));
     desc->lista->primeiro = NULL;
     int v1, v2;
-    while (!feof(fp))
+    while (1)
     {
         fscanf(fp, "%d %d", &v1, &v2);
+        if(feof(fp))
+            return desc;
 
         // Bloco de codigo que vai encadear a ligacao do primeiro vertice da dupla ordenada (aresta)
 
@@ -74,7 +76,6 @@ struct descritor *(cria)()
     }
     if (fp != NULL)
         fclose(fp);
-    return desc;
 }
 
 void destroi(struct descritor *desc)
