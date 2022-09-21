@@ -36,6 +36,8 @@ int main()
             break;
         case 0:
             destroi(desc);
+            if(matrix != NULL)
+                free(matrix);
             return 0;
         }
     }

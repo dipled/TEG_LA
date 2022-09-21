@@ -145,7 +145,6 @@ double **cria_tabela()
     FILE *fp = fopen("teste.csv", "r");
     if (fp == NULL)
     {
-        printf("Erro ao abrir arquivo\n\n");
         return NULL;
     }
     double maior = 0; // para fazer a normalização
