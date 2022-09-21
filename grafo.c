@@ -115,7 +115,7 @@ void printar_grafo(struct descritor *desc)
         printf("--/\n");
     }
 }
-
+//comentario
 int **(cria_tabela)()
 {
     FILE *fp = fopen("iris.csv", "r");
