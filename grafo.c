@@ -56,6 +56,8 @@ struct descritor *(cria)()
             }
             else
             {
+                desc->lista[v2 - 1].grau += 1;
+
                 struct aresta *aux = malloc(sizeof(struct aresta));
 
                 aux = desc->lista[v2 - 1].primeiro;
@@ -115,7 +117,7 @@ void leitor(double **matrix) // le a matriz e cria um txt
 {
     char buffer[100];
     FILE *fp = fopen("grafo.txt", "w");
-    fprintf(fp, "%d\n",SIZE);
+    fprintf(fp, "%d\n", SIZE);
     for (int i = 0; i < SIZE; i++)
     {
         for (int j = i + 1; j < SIZE; j++)
