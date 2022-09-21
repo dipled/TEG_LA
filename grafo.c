@@ -4,7 +4,7 @@
 #include <math.h>
 struct descritor *(cria)()
 {
-    FILE *fp = fopen("grafo.txt", "r");
+    FILE *fp = fopen("criat.txt", "r");
     if (fp == NULL)
         return NULL;
     int n_vertices;
@@ -119,7 +119,7 @@ void leitor(double **matrix) // le a matriz e cria um txt
 
     for (int i = 0; i < 15; i++)
     {
-        for (int j = i; j < 15; j++)
+        for (int j = i+1; j < 15; j++)
         {
             if (matrix[i][j] < 0.3)
                 fprintf(fp, "%d %d\n", i+1, j+1);
@@ -145,7 +145,7 @@ double **cria_tabela()
     fsetpos(fp, &linha_atual);
     double x, y, z, w, esp, x2, y2, z2, w2, esp2;
 
-    int i = 0, j = 0;
+    int i = 0, j = 1;
     while (i < 15)
     {
         fgets(buffer, 100, fp); // Ignorando a linha
@@ -180,9 +180,9 @@ double **cria_tabela()
 
             j++;
         }
-        j = 0;
         fsetpos(fp, &linha_atual);
         i++;
+        j = i +1;
     }
     matrix = normaliza(matrix, menor, maior);
     return matrix;
@@ -194,7 +194,7 @@ double **normaliza(double **matrix, double menor, double maior)
 
     for (int i = 0; i < 15; i++)
     {
-        for (int j = 0; j < 15; j++)
+        for (int j = i+1; j < 15; j++)
         {
             matrix[i][j] = (matrix[i][j] - menor) / (maior - menor);
             printf("i = [%d] j = [%d] - %lf\n", i, j, matrix[i][j]);
