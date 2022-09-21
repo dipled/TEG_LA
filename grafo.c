@@ -108,7 +108,6 @@ void printar_grafo(struct descritor *desc)
             printf("--%d", aux->ligacao);
             aux = aux->proximo;
         }
-        printf("--/\n");
     }
 }
 
@@ -151,7 +150,6 @@ double **cria_tabela()
         fscanf(fp, "%lf, %lf, %lf, %lf,", &x, &y, &z, &w);
         fgets(buffer, 100, fp); // Ignorando a ultima coluna
         matrix[i] = malloc(SIZE * sizeof(double));
-        printf("\n");
 
         while (j < SIZE)
         {
@@ -173,7 +171,6 @@ double **cria_tabela()
             {
                 maior = dist;
             }
-            printf("i = [%d] j = [%d] - %lf\n", i, j, matrix[i][j]);
 
             j++;
         }
@@ -187,14 +184,12 @@ double **cria_tabela()
 
 double **normaliza(double **matrix, double menor, double maior)
 {
-    printf("\n\n\n");
 
     for (int i = 0; i < SIZE; i++)
     {
         for (int j = i + 1; j < SIZE; j++)
         {
             matrix[i][j] = (matrix[i][j] - menor) / (maior - menor);
-            printf("i = [%d] j = [%d] - %lf\n", i, j, matrix[i][j]);
         }
     }
     return matrix;
