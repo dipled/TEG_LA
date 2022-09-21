@@ -5,7 +5,7 @@
 #define SIZE 150
 struct descritor *(cria)()
 {
-    FILE *fp = fopen("criat.txt", "r");
+    FILE *fp = fopen("grafo.txt", "r");
     if (fp == NULL)
         return NULL;
     int n_vertices;
