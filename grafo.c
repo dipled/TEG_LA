@@ -119,7 +119,7 @@ void leitor(double **matrix) // le a matriz e cria um txt
 
     for (int i = 0; i < 15; i++)
     {
-        for (int j = 0; j < 15; j++)
+        for (int j = i; j < 15; j++)
         {
             if (matrix[i][j] < 0.3)
                 fprintf(fp, "%d %d\n", i+1, j+1);
