@@ -111,21 +111,19 @@ void printar_grafo(struct descritor *desc)
     }
 }
 
-void ordena()
+void leitor(double **matrix) // le a matriz e cria um txt
 {
-}
+    char buffer[100];
+    FILE *fp = fopen("criatxt2.txt", "w");
+    fgets(buffer, 100, fp); // Ignorando a primeira linha
 
-void leitor(double** matrix) //le a matriz e cria um txt
-{
-    FILE *fp = fopen("grafo.txt", "r");
-
-    for(int i = 0; i < 4; i++)
+    for (int i = 0; i < 15; i++)
     {
-        for(int j = 0; j < 4; j++)
+        for (int j = 0; j < 15; j++)
         {
-            if(matrix)
+            if (matrix[i][j] < 0.3)
+                fprintf(fp, "%d %d\n", i+1, j+1);
         }
-
     }
 }
 
@@ -135,7 +133,7 @@ double **cria_tabela()
     double maior = 0; // para fazer a normalização
     double menor = 0;
     double dist = 0; // distancia entre nodos
-    double **matrix = malloc(4 * sizeof(double *));
+    double **matrix = malloc(15 * sizeof(double *));
     if (fp == NULL)
         return NULL;
     char buffer[100];
@@ -148,17 +146,17 @@ double **cria_tabela()
     double x, y, z, w, esp, x2, y2, z2, w2, esp2;
 
     int i = 0, j = 0;
-    while (i < 4)
+    while (i < 15)
     {
         fgets(buffer, 100, fp); // Ignorando a linha
         fgetpos(fp, &linha_atual);
         fscanf(fp, "%lf, %lf, %lf, %lf,", &x, &y, &z, &w);
         fgets(buffer, 100, fp); // Ignorando a ultima coluna
-        matrix[i] = malloc(4 * sizeof(double));
+        matrix[i] = malloc(15 * sizeof(double));
         printf("\n");
 
         fsetpos(fp, &segunda_linha);
-        while (j < 4)
+        while (j < 15)
         {
 
             fscanf(fp, "%lf, %lf, %lf, %lf,", &x2, &y2, &z2, &w2);
@@ -194,9 +192,9 @@ double **normaliza(double **matrix, double menor, double maior)
 {
     printf("\n\n\n");
 
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < 15; i++)
     {
-        for (int j = 0; j < 4; j++)
+        for (int j = 0; j < 15; j++)
         {
             matrix[i][j] = (matrix[i][j] - menor) / (maior - menor);
             printf("i = [%d] j = [%d] - %lf\n", i, j, matrix[i][j]);
