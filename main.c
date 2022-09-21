@@ -9,6 +9,6 @@ int main()
     //printar_grafo(desc);
     //destroi(desc);
     double **matrix = cria_tabela();
-
+    
     return 0;
 }

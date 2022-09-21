@@ -150,10 +150,12 @@ void leitor()
             }
         }*/
 
-double** cria_tabela()
+double **cria_tabela()
 {
     FILE *fp = fopen("teste.csv", "r");
-    // double matrix[4][4];
+    double maior = 0; // para fazer a normalização
+    double menor = 0;
+    double dist = 0; // distancia entre nodos
     double **matrix = malloc(4 * sizeof(double *));
     if (fp == NULL)
         return NULL;
@@ -161,14 +163,15 @@ double** cria_tabela()
     fpos_t segunda_linha;
     fpos_t linha_atual;
     fgetpos(fp, &linha_atual);
-    fgets(buffer, 100, fp); // Ignorando a ultima coluna
-    fgetpos(fp, &segunda_linha); //salva a segunda linha pra sempre voltar nela no segundo while
+    fgets(buffer, 100, fp);      // Ignorando a ultima coluna
+    fgetpos(fp, &segunda_linha); // salva a segunda linha pra sempre voltar nela no segundo while
     fsetpos(fp, &linha_atual);
-    double x, y, z, w, x2, y2, z2, w2;
+    double x, y, z, w, esp, x2, y2, z2, w2, esp2;
+
     int i = 0, j = 0;
     while (i < 4)
     {
-        fgets(buffer, 100, fp); // Ignorando a ultima coluna
+        fgets(buffer, 100, fp); // Ignorando a linha
         fgetpos(fp, &linha_atual);
         fscanf(fp, "%lf, %lf, %lf, %lf,", &x, &y, &z, &w);
         fgets(buffer, 100, fp); // Ignorando a ultima coluna
@@ -176,12 +179,26 @@ double** cria_tabela()
         printf("\n");
 
         fsetpos(fp, &segunda_linha);
-        while (j<4)
+        while (j < 4)
         {
+
             fscanf(fp, "%lf, %lf, %lf, %lf,", &x2, &y2, &z2, &w2);
             fgets(buffer, 100, fp);
-
-            matrix[i][j] = sqrt(pow((x - x2), 2) + pow((y - y2), 2) + pow((z - z2), 2) + pow((w - w2), 2));
+            dist = sqrt(pow((x - x2), 2) + pow((y - y2), 2) + pow((z - z2), 2) + pow((w - w2), 2));
+            matrix[i][j] = dist;
+            if (i == 0)
+            {
+                maior = dist;
+                menor = dist;
+            }
+            else if (dist < menor)
+            {
+                menor = dist;
+            }
+            else if (dist > maior)
+            {
+                maior = dist;
+            }
             printf("i = [%d] j = [%d] - %lf\n", i, j, matrix[i][j]);
 
             j++;
@@ -189,6 +206,22 @@ double** cria_tabela()
         j = 0;
         fsetpos(fp, &linha_atual);
         i++;
+    }
+    matrix = normaliza(matrix, menor, maior);
+    return matrix;
+}
+
+double **normaliza(double **matrix, double menor, double maior)
+{
+    printf("\n\n\n");
+
+    for (int i = 0; i < 4; i++)
+    {
+        for (int j = 0; j < 4; j++)
+        {
+            matrix[i][j] = (matrix[i][j] - menor) / (maior - menor);
+            printf("i = [%d] j = [%d] - %lf\n", i, j, matrix[i][j]);
+        }
     }
     return matrix;
 }
