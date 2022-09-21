@@ -4,6 +4,8 @@
 
 int main()
 {
+    double **matrix = cria_tabela();
+    leitor(matrix);
     struct descritor *desc;
     desc = cria();
     int sumgraus = 0;
@@ -13,9 +15,8 @@ int main()
         sumgraus += desc->lista[i].grau;
     }
     printf("\n\n%d\n\n",sumgraus);
+    
     //printar_grafo(desc);
     //destroi(desc);
-    //double **matrix = cria_tabela();
-    //leitor(matrix);
     return 0;
 }

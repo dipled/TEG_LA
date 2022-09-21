@@ -7,7 +7,10 @@ struct descritor *(cria)()
 {
     FILE *fp = fopen("grafo.txt", "r");
     if (fp == NULL)
+    {
+        printf("Erro ao abrir arquivo\n\n");
         return NULL;
+    }
     int n_vertices;
     fscanf(fp, "%d", &n_vertices);
     struct descritor *desc = malloc(sizeof(struct descritor));
@@ -117,6 +120,11 @@ void leitor(double **matrix) // le a matriz e cria um txt
 {
     char buffer[100];
     FILE *fp = fopen("grafo.txt", "w");
+    if (fp == NULL)
+    {
+        printf("Erro ao abrir arquivo\n\n");
+        return;
+    }
     fprintf(fp, "%d\n", SIZE);
     for (int i = 0; i < SIZE; i++)
     {
@@ -126,11 +134,17 @@ void leitor(double **matrix) // le a matriz e cria um txt
                 fprintf(fp, "%d %d\n", i + 1, j + 1);
         }
     }
+    fclose(fp);
 }
 
 double **cria_tabela()
 {
     FILE *fp = fopen("teste.csv", "r");
+    if (fp == NULL)
+    {
+        printf("Erro ao abrir arquivo\n\n");
+        return NULL;
+    }
     double maior = 0; // para fazer a normalização
     double menor = 0;
     double dist = 0; // distancia entre nodos
