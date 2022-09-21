@@ -22,4 +22,5 @@ void destroi(struct descritor *desc);
 void printar_grafo(struct descritor *desc);
 double** cria_tabela();
 double** normaliza(double** matrix, double menor, double maior);
+void leitor();
 

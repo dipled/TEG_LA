@@ -114,41 +114,20 @@ void printar_grafo(struct descritor *desc)
 void ordena()
 {
 }
-/*
-void leitor()
+
+void leitor(double** matrix) //le a matriz e cria um txt
 {
-    ordena();
     FILE *fp = fopen("grafo.txt", "r");
-    int dist = 0;
-    struct ponto *v1, v2;
-    int minx, maxx, miny, maxy, minz, maxz, minw, maxw;
 
-    int num_vertices;
-    fscanf(fp, "%ld", num_vertices);
-    double *vet = calloc(num_vertices, sizeof(struct ponto));
-
-    // ler txt e botar no vetor
-
-    for (int i = 0; i < num_vertices; i++)
+    for(int i = 0; i < 4; i++)
     {
-        fscanf(fp, "%f %f %f %f", vet[i].x, vet[i].y, vet[i].z, vet[i].w);
-    }
-
-    min = vet[0].x;
-    max = vet[num_vertices];
-
-    for (int i = 0; i < num_vertices; i++)
-    {
-        v1 = vet[i];
-        while (1)
+        for(int j = 0; j < 4; j++)
         {
-            fscanf(fp, "%ld", &v2);
-            dist = ((v1 - v2) - min) / (max - min);
-            if (dist < 0.3)
-            {
-                fprintf(fp, "%ld %d", v1, v2);
-            }
-        }*/
+            if(matrix)
+        }
+
+    }
+}
 
 double **cria_tabela()
 {
