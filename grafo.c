@@ -142,7 +142,7 @@ void fazerTxt(double **matrix) // le a matriz e cria um txt
 
 double **cria_tabela()
 {
-    FILE *fp = fopen("teste.csv", "r");
+    FILE *fp = fopen("iris.csv", "r");
     if (fp == NULL)
     {
         return NULL;
