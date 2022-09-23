@@ -15,9 +15,11 @@ int main()
         {
         case 1:
             matrix = cria_tabela();
-            leitor(matrix);
+            fazerTxt(matrix);
             if (matrix == NULL)
                 printf("Erro ao importar arquivo CSV\n");
+            else 
+                printf("Sucesso ao criar txt\n");
             break;
         case 2:
             desc = cria();

@@ -120,7 +120,7 @@ void printar_grafo(struct descritor *desc)
     }
 }
 
-void leitor(double **matrix) // le a matriz e cria um txt
+void fazerTxt(double **matrix) // le a matriz e cria um txt
 {
     char buffer[100];
     FILE *fp = fopen("grafo.txt", "w");
@@ -150,8 +150,8 @@ double **cria_tabela()
     double maior = 0; // para fazer a normalização
     double menor = 0;
     double dist = 0; // distancia entre nodos
-    double **matrix = malloc(SIZE * sizeof(double *));
-    if (fp == NULL)
+    double **matrix = calloc(SIZE, sizeof(double *));
+    if (matrix == NULL)
         return NULL;
     char buffer[100];
     fpos_t linha_atual;
@@ -167,7 +167,7 @@ double **cria_tabela()
         fgetpos(fp, &linha_atual);
         fscanf(fp, "%lf, %lf, %lf, %lf,", &x, &y, &z, &w);
         fgets(buffer, 100, fp); // Ignorando a ultima coluna
-        matrix[i] = malloc(SIZE * sizeof(double));
+        matrix[i] = calloc(SIZE, sizeof(double));
 
         while (j < SIZE)
         {
