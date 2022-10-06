@@ -42,7 +42,9 @@ int main()
         case 4:
             acc = acuracia();
             if (acc != -1.0)
-                printf("%.6lf", acc);
+                printf("Acuracia: %.6lf\n", acc);
+            else
+                printf("Arquivo txt inexistente ou vazio\n");
             break;
         case 0:
             destroi(desc);

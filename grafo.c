@@ -122,8 +122,8 @@ void printar_grafo(struct descritor *desc)
 
 void fazerTxt(double **matrix) // le a matriz e cria um txt
 {
-	if(matrix == NULL)
-		return;
+    if (matrix == NULL)
+        return;
     char buffer[100];
     FILE *fp = fopen("grafo.txt", "w");
     if (fp == NULL)
@@ -201,7 +201,7 @@ double **cria_tabela()
     }
     normaliza(matrix, menor, maior);
     return matrix;
-    if(fp != NULL)
+    if (fp != NULL)
     {
         fclose(fp);
     }
@@ -222,14 +222,16 @@ void normaliza(double **matrix, double menor, double maior)
 double acuracia()
 {
     FILE *f = fopen("grafo.txt", "r");
-    int v1, v2,lixo;
-    int  tp = 0, fp = 0, fn = 0, tn = 0;
+    int v1 = 0, v2 = 0, tam = 0;
+    int tp = 0, fp = 0, fn = 0, tn = 0;
     if (f == NULL)
     {
         return -1.0;
     }
-    fscanf(f, "%d",&lixo);
-    while (!feof(f))
+    fscanf(f, "%d", &tam);
+    if (tam == 0)
+        return -1.0;
+    for(int i = 0; i <tam; i += 1)
     {
         fscanf(f, "%d %d", &v1, &v2);
         if (v1 <= 50 && v2 <= 50)
@@ -249,7 +251,7 @@ double acuracia()
             tn += 1;
         }
     }
-    if(f)
+    if (f)
         fclose(f);
     double acc = (double)(tp + tn) / (tp + tn + fp + fn);
     return acc;
