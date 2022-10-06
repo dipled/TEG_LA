@@ -6,6 +6,7 @@ int main()
 {
     double **matrix = NULL;
     struct descritor *desc = NULL;
+    double acc;
     int escolha = 5;
     while (1)
     {
@@ -37,6 +38,11 @@ int main()
                 break;
             }
             printar_grafo(desc);
+            break;
+        case 4:
+            acc = acuracia();
+            if (acc != -1.0)
+                printf("%.6lf", acc);
             break;
         case 0:
             destroi(desc);

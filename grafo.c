@@ -20,7 +20,7 @@ struct descritor *(cria)()
     while (1)
     {
         fscanf(fp, "%d %d", &v1, &v2);
-        if(feof(fp))
+        if (feof(fp))
             return desc;
 
         // Bloco de codigo que vai encadear a ligacao do primeiro vertice da dupla ordenada (aresta)
@@ -79,7 +79,7 @@ struct descritor *(cria)()
 
 void destroi(struct descritor *desc)
 {
-    if(desc == NULL)
+    if (desc == NULL)
         return;
     int tamanho = desc->quantidade_vertices;
     for (int i = 0; i < tamanho; i += 1)
@@ -210,4 +210,40 @@ void normaliza(double **matrix, double menor, double maior)
             matrix[i][j] = (matrix[i][j] - menor) / (maior - menor);
         }
     }
+}
+
+double acuracia()
+{
+    FILE *f = fopen("grafo.txt", "r");
+    int v1, v2,lixo;
+    int  tp = 0, fp = 0, fn = 0, tn = 0;
+    if (f == NULL)
+    {
+        return -1.0;
+    }
+    fscanf(f, "%d",&lixo);
+    while (!feof(f))
+    {
+        fscanf(f, "%d %d", &v1, &v2);
+        if (v1 <= 50 && v2 <= 50)
+        {
+            tp += 1;
+        }
+        else if (v1 <= 50 && v2 > 50)
+        {
+            fp += 1;
+        }
+        else if (v1 > 50 && v2 <= 50)
+        {
+            fn += 1;
+        }
+        else
+        {
+            tn += 1;
+        }
+    }
+    if(f)
+        fclose(f);
+    double acc = (double)(tp + tn) / (tp + tn + fp + fn);
+    return acc;
 }
