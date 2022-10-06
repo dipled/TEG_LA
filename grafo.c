@@ -122,6 +122,8 @@ void printar_grafo(struct descritor *desc)
 
 void fazerTxt(double **matrix) // le a matriz e cria um txt
 {
+	if(matrix == NULL)
+		return;
     char buffer[100];
     FILE *fp = fopen("grafo.txt", "w");
     if (fp == NULL)
@@ -142,6 +144,7 @@ void fazerTxt(double **matrix) // le a matriz e cria um txt
 
 double **cria_tabela()
 {
+
     FILE *fp = fopen("iris.csv", "r");
     if (fp == NULL)
     {
@@ -198,6 +201,10 @@ double **cria_tabela()
     }
     normaliza(matrix, menor, maior);
     return matrix;
+    if(fp != NULL)
+    {
+        fclose(fp);
+    }
 }
 
 void normaliza(double **matrix, double menor, double maior)
