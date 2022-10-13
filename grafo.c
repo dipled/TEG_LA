@@ -236,19 +236,21 @@ double acuracia()
         fscanf(f, "%d %d", &v1, &v2);
         if (v1 <= 50 && v2 <= 50)
         {
-            tp += 1;
+            tp += 2;
         }
         else if (v1 <= 50 && v2 > 50)
         {
             fp += 1;
+            fn += 1;
         }
         else if (v1 > 50 && v2 <= 50)
         {
             fn += 1;
+            fp += 1;
         }
         else
         {
-            tn += 1;
+            tn += 2;
         }
     }
     if (f)
