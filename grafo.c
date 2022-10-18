@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <math.h>
 #define SIZE 150
+#define LIMIAR 0.3
 struct descritor *(cria)()
 {
     FILE *fp = fopen("grafo.txt", "r");
@@ -135,7 +136,7 @@ void fazerTxt(double **matrix) // le a matriz e cria um txt
     {
         for (int j = i + 1; j < SIZE; j++)
         {
-            if (matrix[i][j] <= 0.3)
+            if (matrix[i][j] <= LIMIAR)
                 fprintf(fp, "%d %d\n", i + 1, j + 1);
         }
     }
@@ -222,18 +223,20 @@ void normaliza(double **matrix, double menor, double maior)
 double acuracia()
 {
     FILE *f = fopen("grafo.txt", "r");
-    int v1 = 0, v2 = 0, tam = 0;
-    int tp = 0, fp = 0, fn = 0, tn = 0;
     if (f == NULL)
     {
         return -1.0;
     }
+    int v1 = 0, v2 = 0, tam = 0;
+    int tp = 0, fp = 0, fn = 0, tn = 0;
     fscanf(f, "%d", &tam);
     if (tam == 0)
         return -1.0;
-    for(int i = 0; i <tam; i += 1)
+    while(1)
     {
-        fscanf(f, "%d %d", &v1, &v2);
+        fscanf(f, "%d %d", &v1, &v2) == 0;
+        if(feof(f))
+            break;
         if (v1 <= 50 && v2 <= 50)
         {
             tp += 1;
